@@ -578,6 +578,7 @@ def s3dg(inputs,
             stride=1,
             data_format='NDHWC',
             scope='AvgPool_0a_7x7')
+        s3dg_features = net
         net = layers.dropout(net, dropout_keep_prob, scope='Dropout_0b')
         logits = layers.conv3d(
             net,
@@ -593,7 +594,7 @@ def s3dg(inputs,
 
         end_points['Logits'] = logits
         end_points['Predictions'] = prediction_fn(logits, scope='Predictions')
-  return logits, end_points
+  return logits, end_points, s3dg_features
 
 
 s3dg.default_image_size = 224
